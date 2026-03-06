@@ -22,12 +22,12 @@ description: 'Agent Teams 审查 - 双 Codex 交叉审查并行实施的产出�
 2. **多模型审查（PARALLEL）**
    - **CRITICAL**: 必须在一条消息中同时发起两个 Bash 调用。
    - **工作目录**：`{{WORKDIR}}` 替换为目标工作目录的绝对路径。
-   - **会话复用**：若步骤 1 获取到 `CODEX_PLAN_SESSION`，在命令中使用 `resume <SESSION_ID>` 替代新会话（将 `--backend codex -` 改为 `--backend codex resume <SESSION_ID> -`）。
+   - **会话复用**：若步骤 1 获取到 `CODEX_PLAN_SESSION`，在命令中使用 `resume <SESSION_ID>` 替代新会话（将 `--backend ${CCG_BACKEND:-codex} -` 改为 `--backend ${CCG_BACKEND:-codex} resume <SESSION_ID> -`）。
 
    **FIRST Bash call (Codex)**（若有 SESSION_ID 则 resume，否则新会话）:
    ```
    Bash({
-     command: "$CLAUDE_PLUGIN_ROOT/bin/run-wrapper --lite --backend codex [resume <CODEX_PLAN_SESSION>] - \"{{WORKDIR}}\" <<'EOF'\nROLE_FILE: $CLAUDE_PLUGIN_ROOT/prompts/codex/reviewer.md\n<TASK>\n审查以下变更：\n<git diff 输出或变更文件列表>\n</TASK>\nOUTPUT (JSON):\n{\n  \"findings\": [\n    {\n      \"severity\": \"Critical|Warning|Info\",\n      \"dimension\": \"logic|security|performance|error_handling\",\n      \"file\": \"path/to/file\",\n      \"line\": 42,\n      \"description\": \"问题描述\",\n      \"fix_suggestion\": \"修复建议\"\n    }\n  ],\n  \"passed_checks\": [\"已验证的检查项\"],\n  \"summary\": \"总体评估\"\n}\nEOF",
+     command: "$CLAUDE_PLUGIN_ROOT/bin/run-wrapper --lite --backend ${CCG_BACKEND:-codex} [resume <CODEX_PLAN_SESSION>] - \"{{WORKDIR}}\" <<'EOF'\nROLE_FILE: $CLAUDE_PLUGIN_ROOT/prompts/$CCG_BACKEND/reviewer.md\n<TASK>\n审查以下变更：\n<git diff 输出或变更文件列表>\n</TASK>\nOUTPUT (JSON):\n{\n  \"findings\": [\n    {\n      \"severity\": \"Critical|Warning|Info\",\n      \"dimension\": \"logic|security|performance|error_handling\",\n      \"file\": \"path/to/file\",\n      \"line\": 42,\n      \"description\": \"问题描述\",\n      \"fix_suggestion\": \"修复建议\"\n    }\n  ],\n  \"passed_checks\": [\"已验证的检查项\"],\n  \"summary\": \"总体评估\"\n}\nEOF",
      run_in_background: true,
      timeout: 3600000,
      description: "Codex 后端审查"
@@ -37,7 +37,7 @@ description: 'Agent Teams 审查 - 双 Codex 交叉审查并行实施的产出�
    **SECOND Bash call (Codex) - IN THE SAME MESSAGE**（若有 SESSION_ID 则 resume，否则新会话）:
    ```
    Bash({
-     command: "$CLAUDE_PLUGIN_ROOT/bin/run-wrapper --lite --backend codex [resume <CODEX_B_PLAN_SESSION>] - \"{{WORKDIR}}\" <<'EOF'\nROLE_FILE: $CLAUDE_PLUGIN_ROOT/prompts/codex/reviewer.md\n<TASK>\n审查以下变更：\n<git diff 输出或变更文件列表>\n</TASK>\nOUTPUT (JSON):\n{\n  \"findings\": [\n    {\n      \"severity\": \"Critical|Warning|Info\",\n      \"dimension\": \"patterns|maintainability|accessibility|architecture|design\",\n      \"file\": \"path/to/file\",\n      \"line\": 42,\n      \"description\": \"问题描述\",\n      \"fix_suggestion\": \"修复建议\"\n    }\n  ],\n  \"passed_checks\": [\"已验证的检查项\"],\n  \"summary\": \"总体评估\"\n}\nEOF",
+     command: "$CLAUDE_PLUGIN_ROOT/bin/run-wrapper --lite --backend ${CCG_BACKEND:-codex} [resume <CODEX_B_PLAN_SESSION>] - \"{{WORKDIR}}\" <<'EOF'\nROLE_FILE: $CLAUDE_PLUGIN_ROOT/prompts/$CCG_BACKEND/reviewer.md\n<TASK>\n审查以下变更：\n<git diff 输出或变更文件列表>\n</TASK>\nOUTPUT (JSON):\n{\n  \"findings\": [\n    {\n      \"severity\": \"Critical|Warning|Info\",\n      \"dimension\": \"patterns|maintainability|accessibility|architecture|design\",\n      \"file\": \"path/to/file\",\n      \"line\": 42,\n      \"description\": \"问题描述\",\n      \"fix_suggestion\": \"修复建议\"\n    }\n  ],\n  \"passed_checks\": [\"已验证的检查项\"],\n  \"summary\": \"总体评估\"\n}\nEOF",
      run_in_background: true,
      timeout: 3600000,
      description: "Codex 架构审查"

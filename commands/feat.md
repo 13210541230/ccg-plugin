@@ -21,7 +21,7 @@ $ARGUMENTS
 ```
 # 新会话调用
 Bash({
-  command: "$CLAUDE_PLUGIN_ROOT/bin/run-wrapper --lite --backend codex - \"{{WORKDIR}}\" <<'EOF'
+  command: "$CLAUDE_PLUGIN_ROOT/bin/run-wrapper --lite --backend ${CCG_BACKEND:-codex} - \"{{WORKDIR}}\" <<'EOF'
 ROLE_FILE: <角色提示词路径>
 <TASK>
 需求：<增强后的需求（如未增强则用 $ARGUMENTS）>
@@ -36,7 +36,7 @@ EOF",
 
 # 复用会话调用
 Bash({
-  command: "$CLAUDE_PLUGIN_ROOT/bin/run-wrapper --lite --backend codex resume <SESSION_ID> - \"{{WORKDIR}}\" <<'EOF'
+  command: "$CLAUDE_PLUGIN_ROOT/bin/run-wrapper --lite --backend ${CCG_BACKEND:-codex} resume <SESSION_ID> - \"{{WORKDIR}}\" <<'EOF'
 ROLE_FILE: <角色提示词路径>
 <TASK>
 需求：<增强后的需求（如未增强则用 $ARGUMENTS）>
@@ -54,10 +54,10 @@ EOF",
 
 | 阶段 | Codex-A | Codex-B |
 |------|---------|---------|
-| 分析 | `$CLAUDE_PLUGIN_ROOT/prompts/codex/analyzer.md` | `$CLAUDE_PLUGIN_ROOT/prompts/codex/analyzer.md` |
-| 规划 | `$CLAUDE_PLUGIN_ROOT/prompts/codex/architect.md` | `$CLAUDE_PLUGIN_ROOT/prompts/codex/architect.md` |
-| 实施 | `$CLAUDE_PLUGIN_ROOT/prompts/codex/architect.md` | `$CLAUDE_PLUGIN_ROOT/prompts/codex/architect.md` |
-| 审查 | `$CLAUDE_PLUGIN_ROOT/prompts/codex/reviewer.md` | `$CLAUDE_PLUGIN_ROOT/prompts/codex/reviewer.md` |
+| 分析 | `$CLAUDE_PLUGIN_ROOT/prompts//analyzer.md` | `$CLAUDE_PLUGIN_ROOT/prompts//analyzer.md` |
+| 规划 | `$CLAUDE_PLUGIN_ROOT/prompts//architect.md` | `$CLAUDE_PLUGIN_ROOT/prompts//architect.md` |
+| 实施 | `$CLAUDE_PLUGIN_ROOT/prompts//architect.md` | `$CLAUDE_PLUGIN_ROOT/prompts//architect.md` |
+| 审查 | `$CLAUDE_PLUGIN_ROOT/prompts//reviewer.md` | `$CLAUDE_PLUGIN_ROOT/prompts//reviewer.md` |
 
 **会话复用**：每次调用返回 `SESSION_ID: xxx`，后续阶段用 `resume xxx` 复用上下文。
 - **📌 必须保存 SESSION_ID**：分析阶段保存 `CODEX_SESSION` + `CODEX_B_SESSION`。

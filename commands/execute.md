@@ -31,7 +31,7 @@ $ARGUMENTS
 ```
 # 复用会话调用（推荐）- 原型生成（Implementation Prototype）
 Bash({
-  command: "$CLAUDE_PLUGIN_ROOT/bin/run-wrapper --lite --backend codex resume <SESSION_ID> - \"{{WORKDIR}}\" <<'EOF'
+  command: "$CLAUDE_PLUGIN_ROOT/bin/run-wrapper --lite --backend ${CCG_BACKEND:-codex} resume <SESSION_ID> - \"{{WORKDIR}}\" <<'EOF'
 ROLE_FILE: <角色提示词路径>
 <TASK>
 需求：<任务描述>
@@ -46,7 +46,7 @@ EOF",
 
 # 新会话调用 - 原型生成（Implementation Prototype）
 Bash({
-  command: "$CLAUDE_PLUGIN_ROOT/bin/run-wrapper --lite --backend codex - \"{{WORKDIR}}\" <<'EOF'
+  command: "$CLAUDE_PLUGIN_ROOT/bin/run-wrapper --lite --backend ${CCG_BACKEND:-codex} - \"{{WORKDIR}}\" <<'EOF'
 ROLE_FILE: <角色提示词路径>
 <TASK>
 需求：<任务描述>
@@ -64,7 +64,7 @@ EOF",
 
 ```
 Bash({
-  command: "$CLAUDE_PLUGIN_ROOT/bin/run-wrapper --lite --backend codex resume <SESSION_ID> - \"{{WORKDIR}}\" <<'EOF'
+  command: "$CLAUDE_PLUGIN_ROOT/bin/run-wrapper --lite --backend ${CCG_BACKEND:-codex} resume <SESSION_ID> - \"{{WORKDIR}}\" <<'EOF'
 ROLE_FILE: <角色提示词路径>
 <TASK>
 Scope: Audit the final code changes.
@@ -89,8 +89,8 @@ EOF",
 
 | 阶段 | Codex-A | Codex-B |
 |------|---------|---------|
-| 实施 | `$CLAUDE_PLUGIN_ROOT/prompts/codex/architect.md` | `$CLAUDE_PLUGIN_ROOT/prompts/codex/architect.md` |
-| 审查 | `$CLAUDE_PLUGIN_ROOT/prompts/codex/reviewer.md` | `$CLAUDE_PLUGIN_ROOT/prompts/codex/reviewer.md` |
+| 实施 | `$CLAUDE_PLUGIN_ROOT/prompts//architect.md` | `$CLAUDE_PLUGIN_ROOT/prompts//architect.md` |
+| 审查 | `$CLAUDE_PLUGIN_ROOT/prompts//reviewer.md` | `$CLAUDE_PLUGIN_ROOT/prompts//reviewer.md` |
 
 **会话复用**：如果 `/ccg:plan` 提供了 SESSION_ID，使用 `resume <SESSION_ID>` 复用上下文。
 
@@ -182,7 +182,7 @@ mcp__fast-context__fast_context_search({
 
 #### Route A: 前端/UI/样式 → Codex
 
-1. 调用 Codex（使用 `$CLAUDE_PLUGIN_ROOT/prompts/codex/architect.md`）
+1. 调用 Codex（使用 `$CLAUDE_PLUGIN_ROOT/prompts//architect.md`）
 2. 输入：计划内容 + 检索到的上下文 + 目标文件
 3. OUTPUT: `Unified Diff Patch ONLY. Strictly prohibit any actual modifications.`
 4. **Codex 架构视角，综合前端设计与架构一致性**
@@ -190,7 +190,7 @@ mcp__fast-context__fast_context_search({
 
 #### Route B: 后端/逻辑/算法 → Codex
 
-1. 调用 Codex（使用 `$CLAUDE_PLUGIN_ROOT/prompts/codex/architect.md`）
+1. 调用 Codex（使用 `$CLAUDE_PLUGIN_ROOT/prompts//architect.md`）
 2. 输入：计划内容 + 检索到的上下文 + 目标文件
 3. OUTPUT: `Unified Diff Patch ONLY. Strictly prohibit any actual modifications.`
 4. **Codex 是后端逻辑的权威，利用其逻辑运算与 Debug 能力**
@@ -250,12 +250,12 @@ mcp__fast-context__fast_context_search({
 **变更生效后，强制立即并行调用** Codex-A 和 Codex-B 进行 Code Review：
 
 1. **Codex-A 审查**（`run_in_background: true`）：
-   - ROLE_FILE: `$CLAUDE_PLUGIN_ROOT/prompts/codex/reviewer.md`
+   - ROLE_FILE: `$CLAUDE_PLUGIN_ROOT/prompts/$CCG_BACKEND/reviewer.md`
    - 输入：变更的 Diff + 目标文件
    - 关注：安全性、性能、错误处理、逻辑正确性
 
 2. **Codex-B 审查**（`run_in_background: true`）：
-   - ROLE_FILE: `$CLAUDE_PLUGIN_ROOT/prompts/codex/reviewer.md`
+   - ROLE_FILE: `$CLAUDE_PLUGIN_ROOT/prompts/$CCG_BACKEND/reviewer.md`
    - 输入：变更的 Diff + 目标文件
    - 关注：架构一致性、设计合理性、可扩展性
 

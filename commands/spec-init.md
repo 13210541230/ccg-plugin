@@ -58,11 +58,11 @@ description: '初始化 OpenSpec (OPSX) 环境 + 验证多模型 MCP 工具'
    - **工作目录**：`{{WORKDIR}}` 替换为目标工作目录的绝对路径。如果用户通过 `/add-dir` 添加了多个工作区，先确定任务相关的工作区。
    - Test Codex backend:
      ```bash
-     $CLAUDE_PLUGIN_ROOT/bin/run-wrapper --backend codex - "{{WORKDIR}}" <<< "echo test"
+     $CLAUDE_PLUGIN_ROOT/bin/run-wrapper --backend ${CCG_BACKEND:-codex} - "{{WORKDIR}}" <<< "echo test"
      ```
    - Test Codex backend (second instance):
      ```bash
-     $CLAUDE_PLUGIN_ROOT/bin/run-wrapper --backend codex - "{{WORKDIR}}" <<< "echo test"
+     $CLAUDE_PLUGIN_ROOT/bin/run-wrapper --backend ${CCG_BACKEND:-codex} - "{{WORKDIR}}" <<< "echo test"
      ```
    - For each unavailable tool, display warning with installation instructions.
 

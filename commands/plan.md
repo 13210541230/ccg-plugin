@@ -30,7 +30,7 @@ $ARGUMENTS
 
 ```
 Bash({
-  command: "$CLAUDE_PLUGIN_ROOT/bin/run-wrapper --lite --backend codex - \"{{WORKDIR}}\" <<'EOF'
+  command: "$CLAUDE_PLUGIN_ROOT/bin/run-wrapper --lite --backend ${CCG_BACKEND:-codex} - \"{{WORKDIR}}\" <<'EOF'
 ROLE_FILE: <角色提示词路径>
 <TASK>
 需求：<增强后的需求>
@@ -48,8 +48,8 @@ EOF",
 
 | 阶段 | Codex-A | Codex-B |
 |------|---------|---------|
-| 分析 | `$CLAUDE_PLUGIN_ROOT/prompts/codex/analyzer.md` | `$CLAUDE_PLUGIN_ROOT/prompts/codex/analyzer.md` |
-| 规划 | `$CLAUDE_PLUGIN_ROOT/prompts/codex/architect.md` | `$CLAUDE_PLUGIN_ROOT/prompts/codex/architect.md` |
+| 分析 | `$CLAUDE_PLUGIN_ROOT/prompts//analyzer.md` | `$CLAUDE_PLUGIN_ROOT/prompts//analyzer.md` |
+| 规划 | `$CLAUDE_PLUGIN_ROOT/prompts//architect.md` | `$CLAUDE_PLUGIN_ROOT/prompts//architect.md` |
 
 **会话复用**：每次调用返回 `SESSION_ID: xxx`（通常由 wrapper 输出），**必须保存**以供后续 `/ccg:execute` 使用。
 
@@ -182,13 +182,13 @@ mcp__fast-context__fast_context_search({
 将**原始需求**（不带预设观点）分发给两个模型：
 
 1. **Codex-A 后端分析**：
-   - ROLE_FILE: `$CLAUDE_PLUGIN_ROOT/prompts/codex/analyzer.md`
+   - ROLE_FILE: `$CLAUDE_PLUGIN_ROOT/prompts/$CCG_BACKEND/analyzer.md`
    - 关注：技术可行性、架构影响、性能考量、潜在风险
    - 输入包含 sequential-thinking 的需求分解结果，请基于此进行深度分析
    - OUTPUT: 多角度解决方案 + 优劣势分析
 
 2. **Codex-B 架构分析**：
-   - ROLE_FILE: `$CLAUDE_PLUGIN_ROOT/prompts/codex/analyzer.md`
+   - ROLE_FILE: `$CLAUDE_PLUGIN_ROOT/prompts/$CCG_BACKEND/analyzer.md`
    - 关注：架构/设计影响、模块划分、可扩展性
    - 输入包含 sequential-thinking 的需求分解结果，请基于此进行深度分析
    - OUTPUT: 多角度解决方案 + 优劣势分析
@@ -209,11 +209,11 @@ mcp__fast-context__fast_context_search({
 为降低 Claude 合成计划的遗漏风险，可并行让两个模型输出“计划草案”（仍然**不允许**修改文件）：
 
 1. **Codex-A 计划草案**（后端权威）：
-   - ROLE_FILE: `$CLAUDE_PLUGIN_ROOT/prompts/codex/architect.md`
+   - ROLE_FILE: `$CLAUDE_PLUGIN_ROOT/prompts/$CCG_BACKEND/architect.md`
    - OUTPUT: Step-by-step plan + pseudo-code（重点：数据流/边界条件/错误处理/测试策略）
 
 2. **Codex-B 计划草案**（架构视角）：
-   - ROLE_FILE: `$CLAUDE_PLUGIN_ROOT/prompts/codex/architect.md`
+   - ROLE_FILE: `$CLAUDE_PLUGIN_ROOT/prompts/$CCG_BACKEND/architect.md`
    - OUTPUT: Step-by-step plan + pseudo-code（重点：架构设计/模块划分/可扩展性/一致性）
 
 用 `TaskOutput` 等待两个模型的完整结果，并记录其建议的关键差异点。
