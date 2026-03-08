@@ -10,7 +10,7 @@ $ARGUMENTS
 
 ## 多模型调用规范
 
-> **必须先读取共享规范**：使用 Read 工具读取 `~/.claude/.ccg/shared/multi-model-spec.md` 获取调用语法、等待规范、输出丢失检测等通用规范。读取后严格遵循其中的规范执行。
+> **必须先读取共享规范**：使用 Read 工具读取 `$CLAUDE_PLUGIN_ROOT/shared/multi-model-spec.md` 获取调用语法、等待规范、输出丢失检测等通用规范。读取后严格遵循其中的规范执行。
 
 **角色提示词**：
 

@@ -806,17 +806,17 @@ Task({
 
 | Worker | 模板路径 |
 |--------|----------|
-| analyze-worker | `~/.claude/.ccg/shared/agent-prompts/analyze-worker.md` |
-| plan-worker | `~/.claude/.ccg/shared/agent-prompts/plan-worker.md` |
-| execute-worker | `~/.claude/.ccg/shared/agent-prompts/execute-worker.md` |
-| review-worker | `~/.claude/.ccg/shared/agent-prompts/review-worker.md` |
-| test-worker | `~/.claude/.ccg/shared/agent-prompts/test-worker.md` |
+| analyze-worker | `$CLAUDE_PLUGIN_ROOT/shared/agent-prompts/analyze-worker.md` |
+| plan-worker | `$CLAUDE_PLUGIN_ROOT/shared/agent-prompts/plan-worker.md` |
+| execute-worker | `$CLAUDE_PLUGIN_ROOT/shared/agent-prompts/execute-worker.md` |
+| review-worker | `$CLAUDE_PLUGIN_ROOT/shared/agent-prompts/review-worker.md` |
+| test-worker | `$CLAUDE_PLUGIN_ROOT/shared/agent-prompts/test-worker.md` |
 
 **使用方式**：
 
 ```
 // 读取模板
-Read({ file_path: "~/.claude/.ccg/shared/agent-prompts/<worker-name>.md" })
+Read({ file_path: "$CLAUDE_PLUGIN_ROOT/shared/agent-prompts/<worker-name>.md" })
 
 // 替换占位符后作为子Agent的 prompt
 Task({
