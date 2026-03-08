@@ -11,7 +11,7 @@ description: '双模型交叉审查（独立工具，随时可用）'
 **Guardrails**
 - **MANDATORY**: Both Codex reviews must complete before synthesis.
 - Review scope is strictly limited to the proposal's changes—no scope creep.
-- Refer to `openspec/AGENTS.md` for spec conventions if reviewing OpenSpec proposals.
+- Refer to `openspec/config.yaml` for project conventions when reviewing OpenSpec proposals.
 
 **Steps**
 1. **Select Proposal**
