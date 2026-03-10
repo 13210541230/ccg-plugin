@@ -1,6 +1,6 @@
 {
   "name": "ccg",
-  "version": "1.7.74",
+  "version": "1.7.75",
   "description": "CCG Multi-Model Collaboration System - Claude + Codex + Gemini workflow orchestration",
   "author": {
     "name": "CCG Contributors"
