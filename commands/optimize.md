@@ -35,8 +35,8 @@ description: '多模型性能优化：Codex 后端优化 + Codex 架构优化'
 
 | 模型 | 提示词 |
 |------|--------|
-| Codex-A | `$CLAUDE_PLUGIN_ROOT/prompts//optimizer.md` |
-| Codex-B | `$CLAUDE_PLUGIN_ROOT/prompts//optimizer.md` |
+| Codex-A | `$CLAUDE_PLUGIN_ROOT/prompts/codex/optimizer.md` |
+| Codex-B | `$CLAUDE_PLUGIN_ROOT/prompts/codex/optimizer.md` |
 
 ---
 

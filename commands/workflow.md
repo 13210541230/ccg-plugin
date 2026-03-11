@@ -38,9 +38,9 @@ description: '多模型协作开发工作流（研究→构思→计划→执行
 
 | 阶段 | Codex | Codex (架构) |
 |------|-------|--------|
-| 分析 | `$CLAUDE_PLUGIN_ROOT/prompts//analyzer.md` | `$CLAUDE_PLUGIN_ROOT/prompts//analyzer.md` |
-| 规划 | `$CLAUDE_PLUGIN_ROOT/prompts//architect.md` | `$CLAUDE_PLUGIN_ROOT/prompts//architect.md` |
-| 审查 | `$CLAUDE_PLUGIN_ROOT/prompts//reviewer.md` | `$CLAUDE_PLUGIN_ROOT/prompts//reviewer.md` |
+| 分析 | `$CLAUDE_PLUGIN_ROOT/prompts/codex/analyzer.md` | `$CLAUDE_PLUGIN_ROOT/prompts/codex/analyzer.md` |
+| 规划 | `$CLAUDE_PLUGIN_ROOT/prompts/codex/architect.md` | `$CLAUDE_PLUGIN_ROOT/prompts/codex/architect.md` |
+| 审查 | `$CLAUDE_PLUGIN_ROOT/prompts/codex/reviewer.md` | `$CLAUDE_PLUGIN_ROOT/prompts/codex/reviewer.md` |
 
 ---
 

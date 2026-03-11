@@ -16,10 +16,10 @@ $ARGUMENTS
 
 | 阶段 | Codex-A | Codex-B |
 |------|---------|---------|
-| 分析 | `$CLAUDE_PLUGIN_ROOT/prompts//analyzer.md` | `$CLAUDE_PLUGIN_ROOT/prompts//analyzer.md` |
-| 规划 | `$CLAUDE_PLUGIN_ROOT/prompts//architect.md` | `$CLAUDE_PLUGIN_ROOT/prompts//architect.md` |
-| 实施 | `$CLAUDE_PLUGIN_ROOT/prompts//architect.md` | `$CLAUDE_PLUGIN_ROOT/prompts//architect.md` |
-| 审查 | `$CLAUDE_PLUGIN_ROOT/prompts//reviewer.md` | `$CLAUDE_PLUGIN_ROOT/prompts//reviewer.md` |
+| 分析 | `$CLAUDE_PLUGIN_ROOT/prompts/codex/analyzer.md` | `$CLAUDE_PLUGIN_ROOT/prompts/codex/analyzer.md` |
+| 规划 | `$CLAUDE_PLUGIN_ROOT/prompts/codex/architect.md` | `$CLAUDE_PLUGIN_ROOT/prompts/codex/architect.md` |
+| 实施 | `$CLAUDE_PLUGIN_ROOT/prompts/codex/architect.md` | `$CLAUDE_PLUGIN_ROOT/prompts/codex/architect.md` |
+| 审查 | `$CLAUDE_PLUGIN_ROOT/prompts/codex/reviewer.md` | `$CLAUDE_PLUGIN_ROOT/prompts/codex/reviewer.md` |
 
 **会话复用**：每次调用返回 `SESSION_ID: xxx`，后续阶段用 `resume xxx` 复用上下文。
 - **必须保存 SESSION_ID**：分析阶段保存 `CODEX_SESSION` + `CODEX_B_SESSION`。

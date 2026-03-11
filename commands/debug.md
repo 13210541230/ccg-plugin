@@ -29,8 +29,8 @@ description: '多模型调试：Codex 后端诊断 + Codex 架构诊断，交叉
 
 | 模型 | 提示词 |
 |------|--------|
-| Codex-A | `$CLAUDE_PLUGIN_ROOT/prompts//debugger.md` |
-| Codex-B | `$CLAUDE_PLUGIN_ROOT/prompts//debugger.md` |
+| Codex-A | `$CLAUDE_PLUGIN_ROOT/prompts/codex/debugger.md` |
+| Codex-B | `$CLAUDE_PLUGIN_ROOT/prompts/codex/debugger.md` |
 
 ---
 

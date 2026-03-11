@@ -25,8 +25,8 @@ description: '多模型代码审查：无参数时自动审查 git diff，双模
 
 | 模型 | 提示词 |
 |------|--------|
-| Codex-A | `$CLAUDE_PLUGIN_ROOT/prompts//reviewer.md` |
-| Codex-B | `$CLAUDE_PLUGIN_ROOT/prompts//reviewer.md` |
+| Codex-A | `$CLAUDE_PLUGIN_ROOT/prompts/codex/reviewer.md` |
+| Codex-B | `$CLAUDE_PLUGIN_ROOT/prompts/codex/reviewer.md` |
 
 ---
 
