@@ -1,0 +1,66 @@
+{
+  "packs": {
+    "legacy": {
+      "description": "兼容入口命令包：恢复 workflow / feat / frontend / backend / teammate",
+      "command_names": [
+        "workflow",
+        "feat",
+        "frontend",
+        "backend",
+        "teammate"
+      ],
+      "commands": [
+        "commands/workflow.md",
+        "commands/feat.md",
+        "commands/frontend.md",
+        "commands/backend.md",
+        "commands/teammate.md"
+      ]
+    },
+    "extras": {
+      "description": "附加开发命令包：optimize / test / clean-branches",
+      "command_names": [
+        "optimize",
+        "test",
+        "clean-branches"
+      ],
+      "commands": [
+        "commands/optimize.md",
+        "commands/test.md",
+        "commands/clean-branches.md"
+      ]
+    },
+    "spec": {
+      "description": "OpenSpec 规范驱动命令包",
+      "command_names": [
+        "spec-init",
+        "spec-research",
+        "spec-plan",
+        "spec-impl",
+        "spec-review"
+      ],
+      "commands": [
+        "commands/spec-init.md",
+        "commands/spec-research.md",
+        "commands/spec-plan.md",
+        "commands/spec-impl.md",
+        "commands/spec-review.md"
+      ]
+    },
+    "team": {
+      "description": "Agent Teams 实验命令包",
+      "command_names": [
+        "team-research",
+        "team-plan",
+        "team-exec",
+        "team-review"
+      ],
+      "commands": [
+        "commands/team-research.md",
+        "commands/team-plan.md",
+        "commands/team-exec.md",
+        "commands/team-review.md"
+      ]
+    }
+  }
+}
