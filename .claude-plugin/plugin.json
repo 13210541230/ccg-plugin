@@ -1,6 +1,6 @@
 {
   "name": "ccg",
-  "version": "1.8.0",
+  "version": "1.8.1",
   "description": "CCG Multi-Model Collaboration System - Claude + Codex + Gemini workflow orchestration",
   "author": {
     "name": "CCG Contributors"
@@ -13,5 +13,13 @@
     "gemini",
     "workflow",
     "collaboration"
-  ]
+  ],
+  "mcpServers": {
+    "ccg-codex": {
+      "command": "node",
+      "args": [
+        "${CLAUDE_PLUGIN_ROOT}/start.mjs"
+      ]
+    }
+  }
 }
